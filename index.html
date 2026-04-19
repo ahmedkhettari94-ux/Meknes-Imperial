@@ -1,0 +1,1388 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- PWA META TAGS -->
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#C9A84C">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Meknès">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="application-name" content="مكناس الإمبراطورية">
+<meta name="msapplication-TileColor" content="#1A120B">
+<meta name="msapplication-TileImage" content="icons/icon-144.png">
+<title>مكناس الإمبراطورية | Meknès Impériale | Imperial Meknes</title>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --gold: #C9A84C;
+    --gold-light: #E8C97A;
+    --gold-dark: #8B6914;
+    --deep: #1A120B;
+    --warm: #2C1A0E;
+    --sand: #F5EDD8;
+    --sand-dark: #E8D9BB;
+    --terracotta: #B85C38;
+    --teal: #2A6B6B;
+    --text-dark: #1A120B;
+    --text-light: #F5EDD8;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Amiri', 'Cormorant Garamond', serif;
+    background: var(--deep);
+    color: var(--text-light);
+    overflow-x: hidden;
+  }
+
+  /* LANGUAGE SWITCHER */
+  #lang-bar {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 1000;
+    background: rgba(26,18,11,0.96);
+    border-bottom: 1px solid rgba(201,168,76,0.3);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 2rem;
+    height: 52px;
+    backdrop-filter: blur(12px);
+  }
+
+  .logo-nav {
+    font-family: 'Amiri', serif;
+    font-size: 1.1rem;
+    color: var(--gold);
+    letter-spacing: 0.02em;
+  }
+
+  .lang-buttons {
+    display: flex;
+    gap: 0.3rem;
+  }
+
+  .lang-btn {
+    background: transparent;
+    border: 1px solid rgba(201,168,76,0.4);
+    color: var(--sand);
+    padding: 0.3rem 0.8rem;
+    border-radius: 2px;
+    cursor: pointer;
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    transition: all 0.3s;
+    font-family: 'Cormorant Garamond', serif;
+  }
+
+  .lang-btn:hover, .lang-btn.active {
+    background: var(--gold);
+    color: var(--deep);
+    border-color: var(--gold);
+    font-weight: 700;
+  }
+
+  /* HERO */
+  #hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    padding-top: 52px;
+    background:
+      radial-gradient(ellipse at 30% 60%, rgba(139,105,20,0.25) 0%, transparent 60%),
+      radial-gradient(ellipse at 80% 20%, rgba(184,92,56,0.15) 0%, transparent 50%),
+      linear-gradient(180deg, #1A120B 0%, #2C1A0E 50%, #1A120B 100%);
+  }
+
+  .hero-pattern {
+    position: absolute;
+    inset: 0;
+    background-image:
+      repeating-linear-gradient(45deg, transparent, transparent 60px, rgba(201,168,76,0.03) 60px, rgba(201,168,76,0.03) 61px),
+      repeating-linear-gradient(-45deg, transparent, transparent 60px, rgba(201,168,76,0.03) 60px, rgba(201,168,76,0.03) 61px);
+    pointer-events: none;
+  }
+
+  .zellige-border {
+    position: absolute;
+    top: 80px; left: 0; right: 0;
+    height: 6px;
+    background: repeating-linear-gradient(90deg,
+      var(--gold) 0px, var(--gold) 20px,
+      var(--terracotta) 20px, var(--terracotta) 40px,
+      var(--teal) 40px, var(--teal) 60px,
+      var(--gold-dark) 60px, var(--gold-dark) 80px
+    );
+    opacity: 0.6;
+  }
+
+  .hero-content {
+    text-align: center;
+    position: relative;
+    z-index: 2;
+    max-width: 800px;
+    padding: 2rem;
+  }
+
+  .hero-badge {
+    display: inline-block;
+    border: 1px solid var(--gold);
+    color: var(--gold);
+    padding: 0.3rem 1.5rem;
+    font-size: 0.7rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+    font-family: 'Cormorant Garamond', serif;
+    animation: fadeInUp 0.8s ease both;
+  }
+
+  .hero-title {
+    font-family: 'Amiri', serif;
+    font-size: clamp(3rem, 8vw, 6rem);
+    line-height: 1.1;
+    color: var(--sand);
+    margin-bottom: 0.5rem;
+    animation: fadeInUp 0.8s 0.2s ease both;
+  }
+
+  .hero-title span {
+    color: var(--gold);
+    display: block;
+  }
+
+  .hero-subtitle {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: clamp(1rem, 2.5vw, 1.4rem);
+    color: rgba(245,237,216,0.6);
+    margin-bottom: 2.5rem;
+    animation: fadeInUp 0.8s 0.4s ease both;
+  }
+
+  .hero-divider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin: 1.5rem 0;
+    animation: fadeInUp 0.8s 0.5s ease both;
+  }
+
+  .hero-divider::before, .hero-divider::after {
+    content: '';
+    flex: 1;
+    max-width: 100px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  }
+
+  .hero-star {
+    color: var(--gold);
+    font-size: 1.2rem;
+  }
+
+  .scroll-hint {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    color: rgba(201,168,76,0.5);
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    animation: bounce 2s infinite;
+  }
+
+  .scroll-arrow {
+    width: 20px;
+    height: 20px;
+    border-right: 1px solid var(--gold);
+    border-bottom: 1px solid var(--gold);
+    transform: rotate(45deg);
+    opacity: 0.5;
+  }
+
+  /* NAV TABS */
+  #nav-tabs {
+    background: var(--warm);
+    border-bottom: 1px solid rgba(201,168,76,0.2);
+    display: flex;
+    overflow-x: auto;
+    scrollbar-width: none;
+    position: sticky;
+    top: 52px;
+    z-index: 100;
+  }
+
+  #nav-tabs::-webkit-scrollbar { display: none; }
+
+  .nav-tab {
+    flex-shrink: 0;
+    padding: 1rem 1.5rem;
+    cursor: pointer;
+    font-size: 0.85rem;
+    color: rgba(245,237,216,0.6);
+    border-bottom: 2px solid transparent;
+    transition: all 0.3s;
+    white-space: nowrap;
+    font-family: 'Amiri', serif;
+  }
+
+  .nav-tab:hover { color: var(--gold); }
+  .nav-tab.active { color: var(--gold); border-bottom-color: var(--gold); }
+
+  /* SECTIONS */
+  section {
+    padding: 5rem 2rem;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  .section-header {
+    text-align: center;
+    margin-bottom: 4rem;
+  }
+
+  .section-badge {
+    display: inline-block;
+    color: var(--gold);
+    font-size: 0.7rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+    font-family: 'Cormorant Garamond', serif;
+  }
+
+  .section-title {
+    font-family: 'Amiri', serif;
+    font-size: clamp(2rem, 4vw, 3rem);
+    color: var(--sand);
+    margin-bottom: 1rem;
+  }
+
+  .section-line {
+    width: 60px;
+    height: 2px;
+    background: var(--gold);
+    margin: 0 auto;
+  }
+
+  /* LANDMARKS GRID */
+  .landmarks-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 2rem;
+  }
+
+  .landmark-card {
+    background: linear-gradient(135deg, rgba(44,26,14,0.9), rgba(26,18,11,0.9));
+    border: 1px solid rgba(201,168,76,0.2);
+    border-radius: 4px;
+    overflow: hidden;
+    transition: all 0.4s;
+    position: relative;
+    cursor: pointer;
+  }
+
+  .landmark-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 4px;
+    border: 1px solid transparent;
+    background: linear-gradient(135deg, var(--gold), var(--terracotta)) border-box;
+    -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+    mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: destination-out;
+    mask-composite: exclude;
+    opacity: 0;
+    transition: opacity 0.4s;
+  }
+
+  .landmark-card:hover { transform: translateY(-4px); box-shadow: 0 20px 60px rgba(0,0,0,0.5); }
+  .landmark-card:hover::before { opacity: 1; }
+
+  .card-icon {
+    width: 100%;
+    height: 180px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 4rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .card-icon::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, transparent 50%, rgba(26,18,11,0.9) 100%);
+  }
+
+  .card-number {
+    position: absolute;
+    top: 1rem;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 4rem;
+    font-weight: 300;
+    color: rgba(201,168,76,0.15);
+    line-height: 1;
+  }
+
+  .card-body {
+    padding: 1.5rem;
+  }
+
+  .card-category {
+    font-size: 0.65rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 0.5rem;
+    font-family: 'Cormorant Garamond', serif;
+  }
+
+  .card-title {
+    font-family: 'Amiri', serif;
+    font-size: 1.4rem;
+    color: var(--sand);
+    margin-bottom: 0.8rem;
+    line-height: 1.3;
+  }
+
+  .card-desc {
+    font-size: 0.9rem;
+    line-height: 1.8;
+    color: rgba(245,237,216,0.7);
+    margin-bottom: 1rem;
+  }
+
+  .card-meta {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    border-top: 1px solid rgba(201,168,76,0.15);
+    padding-top: 1rem;
+  }
+
+  .meta-item {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.75rem;
+    color: rgba(245,237,216,0.5);
+  }
+
+  .meta-icon { color: var(--gold); font-size: 0.8rem; }
+
+  .card-btn {
+    display: inline-block;
+    margin-top: 1rem;
+    padding: 0.5rem 1.2rem;
+    border: 1px solid var(--gold);
+    color: var(--gold);
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    text-decoration: none;
+    transition: all 0.3s;
+    font-family: 'Cormorant Garamond', serif;
+  }
+
+  .card-btn:hover {
+    background: var(--gold);
+    color: var(--deep);
+  }
+
+  /* MAP SECTION */
+  #map-section {
+    background: linear-gradient(180deg, var(--deep), var(--warm), var(--deep));
+    padding: 5rem 2rem;
+  }
+
+  .map-wrapper {
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  .map-container {
+    background: rgba(44,26,14,0.5);
+    border: 1px solid rgba(201,168,76,0.25);
+    border-radius: 4px;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .map-frame {
+    width: 100%;
+    height: 550px;
+    border: none;
+    display: block;
+  }
+
+  .map-overlay-title {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: rgba(26,18,11,0.9);
+    border: 1px solid rgba(201,168,76,0.3);
+    padding: 0.6rem 1rem;
+    font-family: 'Amiri', serif;
+    font-size: 0.9rem;
+    color: var(--gold);
+    backdrop-filter: blur(8px);
+    border-radius: 2px;
+  }
+
+  /* TIPS SECTION */
+  .tips-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .tip-card {
+    background: rgba(44,26,14,0.6);
+    border: 1px solid rgba(201,168,76,0.15);
+    border-radius: 4px;
+    padding: 1.5rem;
+    text-align: center;
+    transition: transform 0.3s;
+  }
+
+  .tip-card:hover { transform: translateY(-3px); }
+
+  .tip-icon { font-size: 2rem; margin-bottom: 1rem; }
+
+  .tip-title {
+    font-family: 'Amiri', serif;
+    color: var(--gold);
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .tip-text {
+    font-size: 0.85rem;
+    color: rgba(245,237,216,0.6);
+    line-height: 1.7;
+  }
+
+  /* FOOTER */
+  footer {
+    background: var(--deep);
+    border-top: 1px solid rgba(201,168,76,0.2);
+    text-align: center;
+    padding: 3rem 2rem;
+  }
+
+  .footer-logo {
+    font-family: 'Amiri', serif;
+    font-size: 1.8rem;
+    color: var(--gold);
+    margin-bottom: 1rem;
+  }
+
+  .footer-text {
+    font-size: 0.8rem;
+    color: rgba(245,237,216,0.4);
+    letter-spacing: 0.05em;
+  }
+
+  .zellige-footer {
+    height: 6px;
+    background: repeating-linear-gradient(90deg,
+      var(--gold) 0px, var(--gold) 20px,
+      var(--terracotta) 20px, var(--terracotta) 40px,
+      var(--teal) 40px, var(--teal) 60px,
+      var(--gold-dark) 60px, var(--gold-dark) 80px
+    );
+    opacity: 0.5;
+    margin-bottom: 3rem;
+  }
+
+  /* ANIMATIONS */
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes bounce {
+    0%, 100% { transform: translateX(-50%) translateY(0); }
+    50% { transform: translateX(-50%) translateY(8px); }
+  }
+
+  .fade-in {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+
+  .fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* RTL/LTR toggle */
+  body.en, body.fr { direction: ltr; font-family: 'Cormorant Garamond', 'Playfair Display', serif; }
+  body.en .hero-title, body.fr .hero-title { font-family: 'Playfair Display', serif; }
+  body.en .card-title, body.fr .card-title { font-family: 'Playfair Display', serif; }
+
+  /* BG VARIANTS */
+  .bg-1 { background: linear-gradient(135deg, rgba(184,92,56,0.3), rgba(139,105,20,0.3)); }
+  .bg-2 { background: linear-gradient(135deg, rgba(42,107,107,0.3), rgba(201,168,76,0.2)); }
+  .bg-3 { background: linear-gradient(135deg, rgba(139,105,20,0.3), rgba(44,26,14,0.5)); }
+  .bg-4 { background: linear-gradient(135deg, rgba(184,92,56,0.2), rgba(42,107,107,0.2)); }
+  .bg-5 { background: linear-gradient(135deg, rgba(201,168,76,0.2), rgba(184,92,56,0.25)); }
+  .bg-6 { background: linear-gradient(135deg, rgba(42,107,107,0.25), rgba(139,105,20,0.2)); }
+
+  @media (max-width: 640px) {
+    .landmarks-grid { grid-template-columns: 1fr; }
+    .lang-btn { padding: 0.25rem 0.5rem; font-size: 0.65rem; }
+    #hero { min-height: 80vh; }
+  }
+
+  /* ===== FLOATING SOCIAL BUTTON ===== */
+  #social-float {
+    position: fixed;
+    left: 1.2rem;
+    bottom: 2rem;
+    z-index: 900;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+  }
+
+  body.en #social-float, body.fr #social-float {
+    left: auto;
+    right: 1.2rem;
+  }
+
+  .social-toggle {
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--gold-dark), var(--gold));
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.3rem;
+    box-shadow: 0 4px 20px rgba(201,168,76,0.5);
+    transition: all 0.3s;
+    position: relative;
+    z-index: 2;
+  }
+
+  .social-toggle:hover {
+    transform: scale(1.08);
+    box-shadow: 0 6px 28px rgba(201,168,76,0.7);
+  }
+
+  .social-toggle.open {
+    background: linear-gradient(135deg, var(--terracotta), var(--gold-dark));
+  }
+
+  .social-menu {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    margin-bottom: 0.7rem;
+    overflow: hidden;
+    max-height: 0;
+    transition: max-height 0.4s cubic-bezier(0.4,0,0.2,1), opacity 0.3s;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .social-menu.open {
+    max-height: 300px;
+    opacity: 1;
+    pointer-events: all;
+  }
+
+  .social-link {
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    font-size: 1.2rem;
+    border: 2px solid rgba(201,168,76,0.3);
+    transition: all 0.25s;
+    position: relative;
+    animation: none;
+  }
+
+  .social-link:hover {
+    transform: scale(1.12);
+    border-color: var(--gold);
+  }
+
+  .social-link .tooltip {
+    position: absolute;
+    left: 58px;
+    background: rgba(26,18,11,0.95);
+    color: var(--sand);
+    padding: 0.3rem 0.7rem;
+    border-radius: 3px;
+    font-size: 0.72rem;
+    white-space: nowrap;
+    border: 1px solid rgba(201,168,76,0.25);
+    font-family: 'Cormorant Garamond', serif;
+    letter-spacing: 0.05em;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+
+  body.en .social-link .tooltip,
+  body.fr .social-link .tooltip {
+    left: auto;
+    right: 58px;
+  }
+
+  .social-link:hover .tooltip { opacity: 1; }
+
+  .social-fb  { background: #1877F2; }
+  .social-ig  { background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fd5949 45%, #d6249f 60%, #285AEB 90%); }
+  .social-li  { background: #0A66C2; }
+  .social-em  { background: linear-gradient(135deg, var(--teal), var(--gold-dark)); }
+
+  /* ===== FOOTER SOCIAL ===== */
+  .footer-social {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin: 1.5rem 0;
+    flex-wrap: wrap;
+  }
+
+  .footer-social-link {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    border: 1px solid rgba(201,168,76,0.25);
+    border-radius: 2px;
+    text-decoration: none;
+    color: rgba(245,237,216,0.7);
+    font-size: 0.8rem;
+    font-family: 'Cormorant Garamond', serif;
+    letter-spacing: 0.05em;
+    transition: all 0.3s;
+  }
+
+  .footer-social-link:hover {
+    border-color: var(--gold);
+    color: var(--gold);
+    background: rgba(201,168,76,0.08);
+  }
+
+  .footer-social-icon { font-size: 1rem; }
+
+  .footer-email {
+    color: var(--gold);
+    font-size: 0.8rem;
+    font-family: 'Cormorant Garamond', serif;
+    letter-spacing: 0.05em;
+    margin: 0.5rem 0 1rem;
+    display: block;
+    text-decoration: none;
+    opacity: 0.7;
+    transition: opacity 0.3s;
+  }
+
+  .footer-email:hover { opacity: 1; }
+
+  .footer-author {
+    font-size: 0.75rem;
+    color: rgba(245,237,216,0.3);
+    margin-top: 1rem;
+    font-family: 'Cormorant Garamond', serif;
+    letter-spacing: 0.08em;
+  }
+
+  /* HIGHLIGHT SECTION */
+  .highlight-strip {
+    background: linear-gradient(90deg, var(--gold-dark), var(--terracotta), var(--teal), var(--gold-dark));
+    padding: 0.8rem 2rem;
+    text-align: center;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.85rem;
+    letter-spacing: 0.15em;
+    color: var(--sand);
+  }
+
+  /* MODAL (landmark detail) */
+  .modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(10,5,2,0.92);
+    z-index: 2000;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    backdrop-filter: blur(8px);
+  }
+
+  .modal-overlay.open { display: flex; }
+
+  .modal-box {
+    background: linear-gradient(135deg, var(--warm), var(--deep));
+    border: 1px solid rgba(201,168,76,0.3);
+    border-radius: 4px;
+    max-width: 600px;
+    width: 100%;
+    max-height: 85vh;
+    overflow-y: auto;
+    padding: 2.5rem;
+    position: relative;
+    animation: fadeInUp 0.3s ease;
+  }
+
+  .modal-close {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    background: none;
+    border: 1px solid rgba(201,168,76,0.4);
+    color: var(--gold);
+    width: 32px;
+    height: 32px;
+    cursor: pointer;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 2px;
+    transition: all 0.2s;
+  }
+
+  .modal-close:hover { background: var(--gold); color: var(--deep); }
+
+  .modal-icon { font-size: 3rem; text-align: center; margin-bottom: 1rem; }
+
+  .modal-title {
+    font-family: 'Amiri', serif;
+    font-size: 1.8rem;
+    color: var(--gold);
+    margin-bottom: 0.5rem;
+    text-align: center;
+  }
+
+  .modal-cat {
+    text-align: center;
+    font-size: 0.7rem;
+    letter-spacing: 0.25em;
+    color: var(--terracotta);
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+    font-family: 'Cormorant Garamond', serif;
+  }
+
+  .modal-divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    margin: 1.5rem 0;
+  }
+
+  .modal-desc {
+    line-height: 1.9;
+    color: rgba(245,237,216,0.8);
+    font-size: 0.95rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .modal-facts {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+
+  .fact-item {
+    background: rgba(201,168,76,0.08);
+    border: 1px solid rgba(201,168,76,0.15);
+    padding: 0.8rem;
+    border-radius: 2px;
+  }
+
+  .fact-label { font-size: 0.65rem; color: var(--gold); letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 0.3rem; font-family: 'Cormorant Garamond', serif; }
+  .fact-value { font-size: 0.85rem; color: var(--sand); }
+
+  .modal-map-btn {
+    display: block;
+    width: 100%;
+    margin-top: 1.5rem;
+    padding: 0.8rem;
+    background: linear-gradient(90deg, var(--gold-dark), var(--gold));
+    color: var(--deep);
+    text-align: center;
+    text-decoration: none;
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 700;
+    font-size: 0.9rem;
+    letter-spacing: 0.1em;
+    border: none;
+    cursor: pointer;
+    transition: opacity 0.3s;
+  }
+
+  .modal-map-btn:hover { opacity: 0.85; }
+</style>
+</head>
+<body class="ar">
+
+<!-- LANGUAGE BAR -->
+<div id="lang-bar">
+  <div class="logo-nav" data-ar="مكناس الإمبراطورية" data-fr="Meknès Impériale" data-en="Imperial Meknes">مكناس الإمبراطورية</div>
+  <div class="lang-buttons">
+    <button class="lang-btn active" onclick="setLang('ar')">عربي</button>
+    <button class="lang-btn" onclick="setLang('fr')">Français</button>
+    <button class="lang-btn" onclick="setLang('en')">English</button>
+  </div>
+</div>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-pattern"></div>
+  <div class="zellige-border"></div>
+  <div class="hero-content">
+    <div class="hero-badge" data-ar="التراث العالمي لليونسكو · المغرب" data-fr="Patrimoine Mondial UNESCO · Maroc" data-en="UNESCO World Heritage · Morocco">التراث العالمي لليونسكو · المغرب</div>
+    <h1 class="hero-title">
+      <span data-ar="مكناس" data-fr="Meknès" data-en="Meknes">مكناس</span>
+      <span style="color: var(--sand); font-size: 0.6em;" data-ar="المدينة الإمبراطورية" data-fr="La Ville Impériale" data-en="The Imperial City">المدينة الإمبراطورية</span>
+    </h1>
+    <div class="hero-divider"><span class="hero-star">✦</span></div>
+    <p class="hero-subtitle" data-ar="اكتشف روائع التاريخ والعمارة الإسلامية في إحدى أعظم المدن الإمبراطورية بالمغرب" data-fr="Découvrez les merveilles de l'histoire et de l'architecture islamique dans l'une des plus grandes villes impériales du Maroc" data-en="Discover the wonders of history and Islamic architecture in one of Morocco's greatest imperial cities">اكتشف روائع التاريخ والعمارة الإسلامية في إحدى أعظم المدن الإمبراطورية بالمغرب</p>
+  </div>
+  <div class="scroll-hint">
+    <div class="scroll-arrow"></div>
+  </div>
+</section>
+
+<!-- HIGHLIGHT STRIP -->
+<div class="highlight-strip" data-ar="٨ معالم تاريخية · جولة سياحية شاملة · خرائط تفاعلية · ٣ لغات" data-fr="8 Sites Historiques · Visite Complète · Cartes Interactives · 3 Langues" data-en="8 Historical Sites · Complete Tour · Interactive Maps · 3 Languages">٨ معالم تاريخية · جولة سياحية شاملة · خرائط تفاعلية · ٣ لغات</div>
+
+<!-- NAV TABS -->
+<div id="nav-tabs">
+  <div class="nav-tab active" onclick="scrollTo('landmarks')" data-ar="المعالم التاريخية" data-fr="Sites Historiques" data-en="Historical Sites">المعالم التاريخية</div>
+  <div class="nav-tab" onclick="scrollTo('map-section')" data-ar="الخريطة" data-fr="Carte" data-en="Map">الخريطة</div>
+  <div class="nav-tab" onclick="scrollTo('tips')" data-ar="نصائح للزوار" data-fr="Conseils" data-en="Visitor Tips">نصائح للزوار</div>
+</div>
+
+<!-- LANDMARKS SECTION -->
+<section id="landmarks">
+  <div class="section-header fade-in">
+    <div class="section-badge" data-ar="تراث حضاري عريق" data-fr="Patrimoine Culturel" data-en="Cultural Heritage">تراث حضاري عريق</div>
+    <h2 class="section-title" data-ar="المعالم التاريخية" data-fr="Les Sites Historiques" data-en="Historical Landmarks">المعالم التاريخية</h2>
+    <div class="section-line"></div>
+  </div>
+
+  <div class="landmarks-grid">
+
+    <!-- 1 -->
+    <div class="landmark-card fade-in" onclick="openModal(0)">
+      <div class="card-icon bg-1">
+        <span>🏛️</span>
+        <span class="card-number" style="right:1rem">01</span>
+      </div>
+      <div class="card-body">
+        <div class="card-category" data-ar="بوابة تاريخية" data-fr="Porte Historique" data-en="Historic Gate">بوابة تاريخية</div>
+        <h3 class="card-title" data-ar="باب المنصور لعلج" data-fr="Bab El Mansour" data-en="Bab El Mansour">باب المنصور لعلج</h3>
+        <p class="card-desc" data-ar="أعظم وأضخم أبواب المغرب، شيّده السلطان مولاي إسماعيل عام 1732م. تتحلى واجهته بزخارف الزليج والرخام والأعمدة الكورنثية، ويُعدّ تحفةً معمارية فريدة تجسّد عظمة الحضارة الإسماعيلية." data-fr="La plus grande et majestueuse porte du Maroc, construite par le Sultan Moulay Ismail en 1732. Sa façade est ornée de zelliges, de marbre et de colonnes corinthiennes, chef-d'œuvre architectural unique témoignant de la grandeur de la civilisation Ismaïlie." data-en="The greatest and most magnificent gate in Morocco, built by Sultan Moulay Ismail in 1732. Its facade is adorned with zellige tiles, marble, and Corinthian columns — a unique architectural masterpiece embodying the splendor of the Ismaili civilization.">أعظم وأضخم أبواب المغرب، شيّده السلطان مولاي إسماعيل عام 1732م. تتحلى واجهته بزخارف الزليج والرخام والأعمدة الكورنثية.</p>
+        <div class="card-meta">
+          <div class="meta-item"><span class="meta-icon">📅</span><span data-ar="1732م" data-fr="1732 AD" data-en="1732 AD">1732م</span></div>
+          <div class="meta-item"><span class="meta-icon">🕗</span><span data-ar="مفتوح دائماً" data-fr="Ouvert 24h/24" data-en="Open 24/7">مفتوح دائماً</span></div>
+          <div class="meta-item"><span class="meta-icon">💰</span><span data-ar="مجاناً" data-fr="Gratuit" data-en="Free">مجاناً</span></div>
+        </div>
+        <span class="card-btn" data-ar="تفاصيل أكثر" data-fr="Plus de détails" data-en="More Details">تفاصيل أكثر</span>
+      </div>
+    </div>
+
+    <!-- 2 -->
+    <div class="landmark-card fade-in" onclick="openModal(1)">
+      <div class="card-icon bg-2">
+        <span>🕌</span>
+        <span class="card-number" style="right:1rem">02</span>
+      </div>
+      <div class="card-body">
+        <div class="card-category" data-ar="ضريح ملكي" data-fr="Mausolée Royal" data-en="Royal Mausoleum">ضريح ملكي</div>
+        <h3 class="card-title" data-ar="ضريح مولاي إسماعيل" data-fr="Mausolée de Moulay Ismail" data-en="Mausoleum of Moulay Ismail">ضريح مولاي إسماعيل</h3>
+        <p class="card-desc" data-ar="مزار ديني وتاريخي يضم رفات السلطان مولاي إسماعيل، يتميز بزخارفه الأندلسية الفاخرة من زليج وجبص ونقوش عربية. نادرًا ما يُسمح لغير المسلمين بدخول ضريح مغربي — هذا استثناء نفيس." data-fr="Sanctuaire religieux et historique abritant la dépouille du Sultan Moulay Ismail, remarquable pour ses ornements andalous luxueux en zellige, stuc et inscriptions arabes. Rare mausolée marocain ouvert aux non-musulmans." data-en="A religious and historical shrine housing the remains of Sultan Moulay Ismail, featuring exquisite Andalusian decorations of zellige, stucco and Arabic inscriptions. One of the rare Moroccan mausoleums open to non-Muslims.">مزار ديني وتاريخي يضم رفات السلطان مولاي إسماعيل، يتميز بزخارفه الأندلسية الفاخرة. نادرًا ما يُسمح لغير المسلمين بدخول ضريح مغربي.</p>
+        <div class="card-meta">
+          <div class="meta-item"><span class="meta-icon">📅</span><span data-ar="القرن 17م" data-fr="XVIIe siècle" data-en="17th Century">القرن 17م</span></div>
+          <div class="meta-item"><span class="meta-icon">🕗</span><span data-ar="9ص – 6.30م" data-fr="9h – 18h30" data-en="9AM – 6:30PM">9ص – 6.30م</span></div>
+          <div class="meta-item"><span class="meta-icon">💰</span><span data-ar="مجاناً" data-fr="Gratuit" data-en="Free">مجاناً</span></div>
+        </div>
+        <span class="card-btn" data-ar="تفاصيل أكثر" data-fr="Plus de détails" data-en="More Details">تفاصيل أكثر</span>
+      </div>
+    </div>
+
+    <!-- 3 -->
+    <div class="landmark-card fade-in" onclick="openModal(2)">
+      <div class="card-icon bg-3">
+        <span>🏟️</span>
+        <span class="card-number" style="right:1rem">03</span>
+      </div>
+      <div class="card-body">
+        <div class="card-category" data-ar="ميدان تاريخي" data-fr="Place Historique" data-en="Historic Square">ميدان تاريخي</div>
+        <h3 class="card-title" data-ar="ساحة الهديم" data-fr="Place El Hedim" data-en="El Hedim Square">ساحة الهديم</h3>
+        <p class="card-desc" data-ar="قلب مكناس النابض وملتقى الحياة اليومية، تقع مقابل باب المنصور مباشرة. كانت في الأصل موقع قصر ملكي، وتحوّلت إلى فضاء مفتوح للأسواق والحرفيين والعروض الشعبية." data-fr="Cœur vibrant de Meknès et carrefour de la vie quotidienne, situé directement en face de Bab El Mansour. Anciennement site d'un palais royal, transformé en espace ouvert pour les marchés et spectacles populaires." data-en="The vibrant heart of Meknes and crossroads of daily life, located directly opposite Bab El Mansour. Originally the site of a royal palace, transformed into an open space for markets, artisans and popular performances.">قلب مكناس النابض وملتقى الحياة اليومية، تقع مقابل باب المنصور مباشرة. كانت في الأصل موقع قصر ملكي.</p>
+        <div class="card-meta">
+          <div class="meta-item"><span class="meta-icon">🕗</span><span data-ar="7ص – 8م" data-fr="7h – 20h" data-en="7AM – 8PM">7ص – 8م</span></div>
+          <div class="meta-item"><span class="meta-icon">💰</span><span data-ar="مجاناً" data-fr="Gratuit" data-en="Free">مجاناً</span></div>
+          <div class="meta-item"><span class="meta-icon">⭐</span><span>4.3 / 5</span></div>
+        </div>
+        <span class="card-btn" data-ar="تفاصيل أكثر" data-fr="Plus de détails" data-en="More Details">تفاصيل أكثر</span>
+      </div>
+    </div>
+
+    <!-- 4 -->
+    <div class="landmark-card fade-in" onclick="openModal(3)">
+      <div class="card-icon bg-4">
+        <span>🎵</span>
+        <span class="card-number" style="right:1rem">04</span>
+      </div>
+      <div class="card-body">
+        <div class="card-category" data-ar="متحف وطني" data-fr="Musée National" data-en="National Museum">متحف وطني</div>
+        <h3 class="card-title" data-ar="متحف دار الجامعي" data-fr="Musée Dar Jamai" data-en="Dar Jamai Museum">متحف دار الجامعي</h3>
+        <p class="card-desc" data-ar="قصر أندلسي بديع يعود للقرن التاسع عشر، تحوّل إلى متحف وطني للموسيقى التقليدية المغربية. يضم حدائق خلّابة وأزياءً تقليدية وآلاتٍ موسيقية نادرة تحكي تاريخ الحضارة المغربية." data-fr="Magnifique palais andalou du XIXe siècle, transformé en musée national de la musique traditionnelle marocaine. Il abrite de splendides jardins, des costumes traditionnels et des instruments de musique rares racontant l'histoire de la civilisation marocaine." data-en="A magnificent 19th-century Andalusian palace transformed into a national museum of traditional Moroccan music. It houses splendid gardens, traditional costumes and rare musical instruments telling the story of Moroccan civilization.">قصر أندلسي بديع من القرن 19، تحوّل إلى متحف وطني للموسيقى التقليدية المغربية. يضم حدائق خلّابة وآلاتٍ موسيقية نادرة.</p>
+        <div class="card-meta">
+          <div class="meta-item"><span class="meta-icon">📅</span><span data-ar="القرن 19م" data-fr="XIXe siècle" data-en="19th Century">القرن 19م</span></div>
+          <div class="meta-item"><span class="meta-icon">🕗</span><span data-ar="10ص – 6م" data-fr="10h – 18h" data-en="10AM – 6PM">10ص – 6م</span></div>
+          <div class="meta-item"><span class="meta-icon">⭐</span><span>4.5 / 5</span></div>
+        </div>
+        <span class="card-btn" data-ar="تفاصيل أكثر" data-fr="Plus de détails" data-en="More Details">تفاصيل أكثر</span>
+      </div>
+    </div>
+
+    <!-- 5 -->
+    <div class="landmark-card fade-in" onclick="openModal(4)">
+      <div class="card-icon bg-5">
+        <span>🌾</span>
+        <span class="card-number" style="right:1rem">05</span>
+      </div>
+      <div class="card-body">
+        <div class="card-category" data-ar="مخازن ملكية" data-fr="Greniers Royaux" data-en="Royal Granaries">مخازن ملكية</div>
+        <h3 class="card-title" data-ar="هري السواني" data-fr="Hri es-Souani" data-en="Hri es-Souani">هري السواني</h3>
+        <p class="card-desc" data-ar="مخازن ملكية أسطورية أمر بإنشائها مولاي إسماعيل لتغذية جيوشه وخيوله الأفارقة. تمتد عبر مئات الأمتار بجدران سميكة وأقبية عملاقة، وبجانبها بحيرة أكدال الملكية التاريخية." data-fr="Greniers royaux légendaires, commandés par Moulay Ismail pour nourrir ses armées et ses chevaux africains. Ils s'étendent sur des centaines de mètres avec de grands murs et d'immenses voûtes, à côté du bassin royal historique d'Agdal." data-en="Legendary royal granaries ordered by Moulay Ismail to feed his armies and African horses. They extend hundreds of meters with thick walls and massive vaults, alongside the historic royal Agdal Basin.">مخازن ملكية أسطورية أمر بإنشائها مولاي إسماعيل لتغذية جيوشه. تمتد عبر مئات الأمتار بجدران سميكة وأقبية عملاقة.</p>
+        <div class="card-meta">
+          <div class="meta-item"><span class="meta-icon">📅</span><span data-ar="القرن 17م" data-fr="XVIIe siècle" data-en="17th Century">القرن 17م</span></div>
+          <div class="meta-item"><span class="meta-icon">🕗</span><span data-ar="9ص – 12.30م / 3م – 6.30م" data-fr="9h–12h30 / 15h–18h30" data-en="9AM–12:30PM / 3–6:30PM">9ص – 12.30م</span></div>
+          <div class="meta-item"><span class="meta-icon">⭐</span><span>4.1 / 5</span></div>
+        </div>
+        <span class="card-btn" data-ar="تفاصيل أكثر" data-fr="Plus de détails" data-en="More Details">تفاصيل أكثر</span>
+      </div>
+    </div>
+
+    <!-- 6 -->
+    <div class="landmark-card fade-in" onclick="openModal(5)">
+      <div class="card-icon bg-6">
+        <span>🏺</span>
+        <span class="card-number" style="right:1rem">06</span>
+      </div>
+      <div class="card-body">
+        <div class="card-category" data-ar="موقع أثري روماني" data-fr="Site Archéologique Romain" data-en="Roman Archaeological Site">موقع أثري روماني</div>
+        <h3 class="card-title" data-ar="وليلي الرومانية" data-fr="Site de Volubilis" data-en="Volubilis Roman Site">وليلي الرومانية</h3>
+        <p class="card-desc" data-ar="أعظم موقع أثري روماني في المغرب وإفريقيا، مدرج على قائمة التراث العالمي لليونسكو. يضم فسيفساء ملونة رائعة وقوس انتصار شامخ ومعبد المشتر، يروي حضارة امتدت على أرض مكناس قبل ألفي سنة." data-fr="Le plus grand site archéologique romain du Maroc et d'Afrique, inscrit sur la liste du patrimoine mondial de l'UNESCO. Il abrite de magnifiques mosaïques colorées, un arc de triomphe majestueux et le temple de Jupiter, témoignant d'une civilisation vieille de 2000 ans." data-en="The greatest Roman archaeological site in Morocco and Africa, listed on UNESCO's World Heritage List. It features magnificent colorful mosaics, a majestic triumphal arch, and the Temple of Jupiter, telling of a civilization 2000 years old.">أعظم موقع أثري روماني في المغرب، مدرج على قائمة التراث العالمي لليونسكو. يضم فسيفساء ملونة رائعة وقوس انتصار شامخ.</p>
+        <div class="card-meta">
+          <div class="meta-item"><span class="meta-icon">📅</span><span data-ar="القرن 1م – 3م" data-fr="Ier – IIIe s." data-en="1st – 3rd Century">القرن 1م – 3م</span></div>
+          <div class="meta-item"><span class="meta-icon">🕗</span><span data-ar="8.30ص – 6م" data-fr="8h30 – 18h" data-en="8:30AM – 6PM">8.30ص – 6م</span></div>
+          <div class="meta-item"><span class="meta-icon">💰</span><span data-ar="100 درهم" data-fr="100 DH" data-en="100 DH">100 درهم</span></div>
+        </div>
+        <span class="card-btn" data-ar="تفاصيل أكثر" data-fr="Plus de détails" data-en="More Details">تفاصيل أكثر</span>
+      </div>
+    </div>
+
+    <!-- 7 -->
+    <div class="landmark-card fade-in" onclick="openModal(6)">
+      <div class="card-icon bg-1">
+        <span>🚪</span>
+        <span class="card-number" style="right:1rem">07</span>
+      </div>
+      <div class="card-body">
+        <div class="card-category" data-ar="بوابة تاريخية" data-fr="Porte Historique" data-en="Historic Gate">بوابة تاريخية</div>
+        <h3 class="card-title" data-ar="باب الخميس" data-fr="Bab El-Khemis" data-en="Bab El-Khemis">باب الخميس</h3>
+        <p class="card-desc" data-ar="بوابة تاريخية فخمة من القرن السابع عشر تُعدّ من أجمل أبواب مدينة مكناس العتيقة. تتزيّن بالفريز والأنماط الهندسية الكوفية الرائعة، وكانت تمثّل المدخل الغربي للمدينة الإمبراطورية." data-fr="Splendide porte historique du XVIIe siècle, considérée comme l'une des plus belles de la vieille ville de Meknès. Elle est ornée de frises et de magnifiques motifs géométriques coufiques, ancienne entrée ouest de la ville impériale." data-en="A magnificent 17th-century historic gate, one of the most beautiful in the old city of Meknes. Adorned with friezes and splendid Kufic geometric patterns, it served as the western entrance to the imperial city.">بوابة تاريخية فخمة من القرن السابع عشر تُعدّ من أجمل أبواب مكناس. تتزيّن بالفريز والأنماط الهندسية الكوفية.</p>
+        <div class="card-meta">
+          <div class="meta-item"><span class="meta-icon">📅</span><span data-ar="القرن 17م" data-fr="XVIIe siècle" data-en="17th Century">القرن 17م</span></div>
+          <div class="meta-item"><span class="meta-icon">🕗</span><span data-ar="مفتوح دائماً" data-fr="Ouvert 24h/24" data-en="Open 24/7">مفتوح دائماً</span></div>
+          <div class="meta-item"><span class="meta-icon">⭐</span><span>4.3 / 5</span></div>
+        </div>
+        <span class="card-btn" data-ar="تفاصيل أكثر" data-fr="Plus de détails" data-en="More Details">تفاصيل أكثر</span>
+      </div>
+    </div>
+
+    <!-- 8 -->
+    <div class="landmark-card fade-in" onclick="openModal(7)">
+      <div class="card-icon bg-3">
+        <span>⛰️</span>
+        <span class="card-number" style="right:1rem">08</span>
+      </div>
+      <div class="card-body">
+        <div class="card-category" data-ar="مدينة مقدسة" data-fr="Ville Sacrée" data-en="Sacred City">مدينة مقدسة</div>
+        <h3 class="card-title" data-ar="مولاي إدريس زرهون" data-fr="Moulay Idriss Zerhoun" data-en="Moulay Idriss Zerhoun">مولاي إدريس زرهون</h3>
+        <p class="card-desc" data-ar="المدينة المقدسة المبنية على قمتي جبلين متجاورين، تضم ضريح مولاي إدريس الأول مؤسس الدولة الإدريسية وأول دولة إسلامية بالمغرب. من مناطر السطح تتكشف بانوراما خلّابة لا تُنسى." data-fr="Ville sacrée construite au sommet de deux collines voisines, abritant le mausolée de Moulay Idriss I, fondateur de la dynastie Idrisside et premier État islamique du Maroc. Des terrasses, une vue panoramique inoubliable se dévoile." data-en="The sacred city built on the summits of two neighboring hills, housing the mausoleum of Moulay Idriss I, founder of the Idrisid dynasty and Morocco's first Islamic state. From the terraces, an unforgettable panoramic view unfolds.">المدينة المقدسة المبنية على قمتي جبلين، تضم ضريح مولاي إدريس الأول مؤسس الدولة الإدريسية أول دولة إسلامية بالمغرب.</p>
+        <div class="card-meta">
+          <div class="meta-item"><span class="meta-icon">📅</span><span data-ar="القرن 8م" data-fr="VIIIe siècle" data-en="8th Century">القرن 8م</span></div>
+          <div class="meta-item"><span class="meta-icon">🚗</span><span data-ar="30 دقيقة من مكناس" data-fr="30 min de Meknès" data-en="30 min from Meknes">30 دقيقة</span></div>
+          <div class="meta-item"><span class="meta-icon">💰</span><span data-ar="مجاناً" data-fr="Gratuit" data-en="Free">مجاناً</span></div>
+        </div>
+        <span class="card-btn" data-ar="تفاصيل أكثر" data-fr="Plus de détails" data-en="More Details">تفاصيل أكثر</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- MAP SECTION -->
+<div id="map-section">
+  <div class="map-wrapper">
+    <div class="section-header fade-in">
+      <div class="section-badge" data-ar="خريطة تفاعلية" data-fr="Carte Interactive" data-en="Interactive Map">خريطة تفاعلية</div>
+      <h2 class="section-title" data-ar="تجوّل بين المعالم" data-fr="Explorez les Sites" data-en="Explore the Sites">تجوّل بين المعالم</h2>
+      <div class="section-line"></div>
+      <p style="color: rgba(245,237,216,0.6); margin-top:1rem; font-size:0.9rem;" data-ar="خريطة تقريبية تُظهر مواقع المعالم التاريخية الرئيسية في مكناس وضواحيها" data-fr="Carte approximative montrant les emplacements des principaux sites historiques de Meknès et ses environs" data-en="Approximate map showing the locations of the main historical sites in Meknes and its surroundings">خريطة تقريبية تُظهر مواقع المعالم التاريخية الرئيسية في مكناس وضواحيها</p>
+    </div>
+    <div class="map-container fade-in">
+      <div class="map-overlay-title" data-ar="📍 مكناس — المغرب" data-fr="📍 Meknès — Maroc" data-en="📍 Meknes — Morocco">📍 مكناس — المغرب</div>
+      <iframe
+        class="map-frame"
+        src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d30000!2d-5.5640!3d33.8930!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sfr!2sma!4v1700000000000!5m2!1sfr!2sma"
+        allowfullscreen=""
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+        title="Meknes Map">
+      </iframe>
+    </div>
+
+    <!-- Landmark Map Buttons -->
+    <div style="display:grid; grid-template-columns: repeat(auto-fill, minmax(200px,1fr)); gap:1rem; margin-top:2rem;">
+      <a href="https://maps.google.com/?q=Bab+El+Mansour+Meknes" target="_blank" class="card-btn" style="text-align:center; display:block;" data-ar="📍 باب المنصور" data-fr="📍 Bab El Mansour" data-en="📍 Bab El Mansour">📍 باب المنصور</a>
+      <a href="https://maps.google.com/?q=Mausoleum+Moulay+Ismail+Meknes" target="_blank" class="card-btn" style="text-align:center; display:block;" data-ar="📍 ضريح مولاي إسماعيل" data-fr="📍 Mausolée Moulay Ismail" data-en="📍 Moulay Ismail Tomb">📍 ضريح مولاي إسماعيل</a>
+      <a href="https://maps.google.com/?q=Place+El+Hedim+Meknes" target="_blank" class="card-btn" style="text-align:center; display:block;" data-ar="📍 ساحة الهديم" data-fr="📍 Place El Hedim" data-en="📍 El Hedim Square">📍 ساحة الهديم</a>
+      <a href="https://maps.google.com/?q=Dar+Jamai+Museum+Meknes" target="_blank" class="card-btn" style="text-align:center; display:block;" data-ar="📍 متحف دار الجامعي" data-fr="📍 Musée Dar Jamai" data-en="📍 Dar Jamai Museum">📍 متحف دار الجامعي</a>
+      <a href="https://maps.google.com/?q=Hri+Souani+Meknes" target="_blank" class="card-btn" style="text-align:center; display:block;" data-ar="📍 هري السواني" data-fr="📍 Hri es-Souani" data-en="📍 Hri es-Souani">📍 هري السواني</a>
+      <a href="https://maps.google.com/?q=Volubilis+Morocco" target="_blank" class="card-btn" style="text-align:center; display:block;" data-ar="📍 وليلي الرومانية" data-fr="📍 Site de Volubilis" data-en="📍 Volubilis Roman Site">📍 وليلي الرومانية</a>
+      <a href="https://maps.google.com/?q=Bab+El+Khemis+Meknes" target="_blank" class="card-btn" style="text-align:center; display:block;" data-ar="📍 باب الخميس" data-fr="📍 Bab El-Khemis" data-en="📍 Bab El-Khemis">📍 باب الخميس</a>
+      <a href="https://maps.google.com/?q=Moulay+Idriss+Zerhoun+Morocco" target="_blank" class="card-btn" style="text-align:center; display:block;" data-ar="📍 مولاي إدريس زرهون" data-fr="📍 Moulay Idriss Zerhoun" data-en="📍 Moulay Idriss Zerhoun">📍 مولاي إدريس زرهون</a>
+    </div>
+  </div>
+</div>
+
+<!-- TIPS SECTION -->
+<section id="tips">
+  <div class="section-header fade-in">
+    <div class="section-badge" data-ar="إرشادات السفر" data-fr="Conseils de Voyage" data-en="Travel Advice">إرشادات السفر</div>
+    <h2 class="section-title" data-ar="نصائح للزوار" data-fr="Conseils aux Visiteurs" data-en="Visitor Tips">نصائح للزوار</h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="tips-grid">
+    <div class="tip-card fade-in">
+      <div class="tip-icon">🕐</div>
+      <div class="tip-title" data-ar="أفضل وقت للزيارة" data-fr="Meilleure Période" data-en="Best Time to Visit">أفضل وقت للزيارة</div>
+      <div class="tip-text" data-ar="الربيع (مارس–مايو) والخريف (سبتمبر–نوفمبر) أنسب الفصول — طقس معتدل وألوان طبيعية خلابة" data-fr="Le printemps (mars–mai) et l'automne (sept.–nov.) sont les meilleures saisons — climat doux et couleurs naturelles splendides" data-en="Spring (March–May) and Autumn (Sept.–Nov.) are the best seasons — mild weather and splendid natural colors">الربيع (مارس–مايو) والخريف (سبتمبر–نوفمبر) أنسب الفصول — طقس معتدل وألوان طبيعية خلابة</div>
+    </div>
+    <div class="tip-card fade-in">
+      <div class="tip-icon">👗</div>
+      <div class="tip-title" data-ar="اللباس المناسب" data-fr="Tenue Appropriée" data-en="Appropriate Attire">اللباس المناسب</div>
+      <div class="tip-text" data-ar="يُستحسن اللباس المحتشم احتراماً للموروث الثقافي، خاصة عند زيارة الأضرحة والمساجد" data-fr="Une tenue modeste est recommandée par respect du patrimoine culturel, surtout lors de la visite des mausolées et mosquées" data-en="Modest attire is recommended out of respect for the cultural heritage, especially when visiting mausoleums and mosques">يُستحسن اللباس المحتشم احتراماً للموروث الثقافي، خاصة عند زيارة الأضرحة والمساجد</div>
+    </div>
+    <div class="tip-card fade-in">
+      <div class="tip-icon">💵</div>
+      <div class="tip-title" data-ar="العملة والميزانية" data-fr="Monnaie & Budget" data-en="Currency & Budget">العملة والميزانية</div>
+      <div class="tip-text" data-ar="الدرهم المغربي (MAD). معظم المعالم مجانية أو برسوم رمزية. وليلي: 100 درهم للأجانب" data-fr="Le Dirham marocain (MAD). La plupart des sites sont gratuits ou à tarif symbolique. Volubilis: 100 DH pour les étrangers" data-en="Moroccan Dirham (MAD). Most sites are free or with nominal fees. Volubilis: 100 DH for foreigners">الدرهم المغربي (MAD). معظم المعالم مجانية أو برسوم رمزية. وليلي: 100 درهم للأجانب</div>
+    </div>
+    <div class="tip-card fade-in">
+      <div class="tip-icon">🚕</div>
+      <div class="tip-title" data-ar="التنقل" data-fr="Transports" data-en="Getting Around">التنقل</div>
+      <div class="tip-text" data-ar="المدينة العتيقة يمكن جولتها سيراً. لوليلي ومولاي إدريس: استخدم سيارة أجرة كبيرة (grand taxi)" data-fr="La médina peut se visiter à pied. Pour Volubilis et Moulay Idriss, utilisez un grand taxi" data-en="The medina can be toured on foot. For Volubilis and Moulay Idriss, use a grand taxi">المدينة العتيقة يمكن جولتها سيراً. لوليلي ومولاي إدريس: استخدم سيارة أجرة كبيرة (grand taxi)</div>
+    </div>
+    <div class="tip-card fade-in">
+      <div class="tip-icon">📸</div>
+      <div class="tip-title" data-ar="التصوير" data-fr="Photographie" data-en="Photography">التصوير</div>
+      <div class="tip-text" data-ar="الصور مسموح بها في معظم المواقع. استأذن قبل تصوير السكان المحليين. أجمل الصور مع شروق وغروب الشمس" data-fr="La photographie est permise dans la plupart des sites. Demandez permission avant de photographier les habitants. Les plus belles photos au lever et coucher du soleil" data-en="Photography is permitted at most sites. Ask permission before photographing locals. Best photos at sunrise and sunset">الصور مسموح بها في معظم المواقع. استأذن قبل تصوير السكان. أجمل الصور مع شروق وغروب الشمس</div>
+    </div>
+    <div class="tip-card fade-in">
+      <div class="tip-icon">🍽️</div>
+      <div class="tip-title" data-ar="المطبخ المحلي" data-fr="Cuisine Locale" data-en="Local Cuisine">المطبخ المحلي</div>
+      <div class="tip-text" data-ar="جرّب المدفونة والطاجين والرفيسة. مطاعم ساحة الهديم تقدم أطباقاً تقليدية رائعة بأسعار مناسبة" data-fr="Goûtez la medfouna, le tajine et la rfissa. Les restaurants de la Place El Hedim proposent d'excellents plats traditionnels à prix raisonnables" data-en="Try the medfouna, tagine and rfissa. Restaurants around El Hedim Square offer excellent traditional dishes at reasonable prices">جرّب المدفونة والطاجين والرفيسة. مطاعم ساحة الهديم تقدم أطباقاً تقليدية رائعة بأسعار مناسبة</div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="zellige-footer"></div>
+  <div class="footer-logo" data-ar="مكناس الإمبراطورية" data-fr="Meknès Impériale" data-en="Imperial Meknes">مكناس الإمبراطورية</div>
+
+  <p style="color:rgba(245,237,216,0.4); font-size:0.75rem; letter-spacing:0.15em; text-transform:uppercase; margin:0.8rem 0 1.2rem; font-family:'Cormorant Garamond',serif;"
+     data-ar="تواصل مع المؤلف" data-fr="Contacter l'Auteur" data-en="Contact the Author">تواصل مع المؤلف</a>
+
+  <div class="footer-social">
+    <a href="https://www.facebook.com/share/1R8KKJPdw6/" target="_blank" class="footer-social-link">
+      <span class="footer-social-icon">📘</span>
+      <span>Facebook</span>
+    </a>
+    <a href="https://www.instagram.com/khettariahmed?igsh=MWc1amVqeXUyNjI5aA==" target="_blank" class="footer-social-link">
+      <span class="footer-social-icon">📸</span>
+      <span>Instagram</span>
+    </a>
+    <a href="https://www.linkedin.com/in/ahmed-khettari-89a892167" target="_blank" class="footer-social-link">
+      <span class="footer-social-icon">💼</span>
+      <span>LinkedIn</span>
+    </a>
+    <a href="mailto:khettarihistory@gmail.com" class="footer-social-link">
+      <span class="footer-social-icon">✉️</span>
+      <span>khettarihistory@gmail.com</span>
+    </a>
+  </div>
+
+  <p class="footer-text" data-ar="موقع سياحي توعوي · جميع المعلومات تقريبية · يُنصح بالتحقق من أوقات الفتح قبل الزيارة" data-fr="Site touristique informatif · Toutes les informations sont approximatives · Il est conseillé de vérifier les horaires avant la visite" data-en="Informational tourism website · All information is approximate · It is advisable to verify opening hours before visiting">موقع سياحي توعوي · جميع المعلومات تقريبية · يُنصح بالتحقق من أوقات الفتح قبل الزيارة</p>
+
+  <p class="footer-author">© 2025 Ahmed Khettari · مكناس الإمبراطورية</p>
+</footer>
+
+<!-- FLOATING SOCIAL BUTTON -->
+<div id="social-float">
+  <div class="social-menu" id="social-menu">
+    <a href="https://www.facebook.com/share/1R8KKJPdw6/" target="_blank" class="social-link social-fb" title="Facebook">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+      <span class="tooltip">Facebook</span>
+    </a>
+    <a href="https://www.instagram.com/khettariahmed?igsh=MWc1amVqeXUyNjI5aA==" target="_blank" class="social-link social-ig" title="Instagram">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+      <span class="tooltip">@khettariahmed</span>
+    </a>
+    <a href="https://www.linkedin.com/in/ahmed-khettari-89a892167" target="_blank" class="social-link social-li" title="LinkedIn">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg>
+      <span class="tooltip">Ahmed Khettari</span>
+    </a>
+    <a href="mailto:khettarihistory@gmail.com" class="social-link social-em" title="Email">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+      <span class="tooltip">khettarihistory@gmail.com</span>
+    </a>
+  </div>
+  <button class="social-toggle" id="social-toggle" onclick="toggleSocial()" title="تواصل معنا">
+    <svg id="toggle-icon-open" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/><circle cx="19" cy="19" r="3" fill="white" stroke="none"/><path d="M17.5 17.5l3 3" stroke="white"/></svg>
+    <span id="toggle-icon-close" style="display:none; color:white; font-size:1.1rem; font-weight:300;">✕</span>
+  </button>
+</div>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modal" onclick="closeModal(event)">
+  <div class="modal-box" id="modal-box">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <div class="modal-icon" id="m-icon"></div>
+    <h2 class="modal-title" id="m-title"></h2>
+    <div class="modal-cat" id="m-cat"></div>
+    <div class="modal-divider"></div>
+    <p class="modal-desc" id="m-desc"></p>
+    <div class="modal-facts" id="m-facts"></div>
+    <a class="modal-map-btn" id="m-mapbtn" target="_blank" href="#">
+      <span data-ar="🗺️ فتح في خرائط Google" data-fr="🗺️ Ouvrir dans Google Maps" data-en="🗺️ Open in Google Maps">🗺️ فتح في خرائط Google</span>
+    </a>
+  </div>
+</div>
+
+<script>
+// ========== SOCIAL FLOAT ==========
+function toggleSocial() {
+  const menu = document.getElementById('social-menu');
+  const btn  = document.getElementById('social-toggle');
+  const iconOpen  = document.getElementById('toggle-icon-open');
+  const iconClose = document.getElementById('toggle-icon-close');
+  const isOpen = menu.classList.toggle('open');
+  btn.classList.toggle('open', isOpen);
+  iconOpen.style.display  = isOpen ? 'none'  : '';
+  iconClose.style.display = isOpen ? ''      : 'none';
+}
+
+// Close social on outside click
+document.addEventListener('click', e => {
+  const float = document.getElementById('social-float');
+  if (float && !float.contains(e.target)) {
+    document.getElementById('social-menu').classList.remove('open');
+    document.getElementById('social-toggle').classList.remove('open');
+    document.getElementById('toggle-icon-open').style.display = '';
+    document.getElementById('toggle-icon-close').style.display = 'none';
+  }
+});
+
+// ========== DATA ==========
+const landmarks = [
+  {
+    icon: '🏛️',
+    ar: { title: 'باب المنصور لعلج', cat: 'بوابة تاريخية', desc: 'أعظم وأضخم أبواب المغرب وأجملها، شيّده السلطان مولاي عبد الله ابن مولاي إسماعيل عام 1732م إتمامًا لمشروع والده. تتحلى واجهته الفخمة بزخارف الزليج الملون والرخام الأبيض والأعمدة الكورنثية المنقولة من وليلي الرومانية. اسمها مستوحى من مهندسها الأندلسي المُعتنق للإسلام. تُعدّ تحفةً معمارية إسلامية فريدة تجسّد عظمة وجلال الحضارة الإسماعيلية في أوج ازدهارها.', hours: 'مفتوح دائماً', price: 'مجاناً', era: '1732م', distance: 'قلب المدينة العتيقة' },
+    fr: { title: 'Bab El Mansour', cat: 'Porte Historique', desc: "La plus grande et majestueuse porte du Maroc, achevée en 1732 par le Sultan Moulay Abdallah, fils de Moulay Ismail. Sa somptueuse façade est ornée de zelliges colorés, de marbre blanc et de colonnes corinthiennes provenant de Volubilis. Son nom vient de son architecte andalou converti à l'Islam. Elle est considérée comme un chef-d'œuvre architectural islamique unique témoignant de la grandeur de la civilisation Ismaïlie à son apogée.", hours: 'Ouvert 24h/24', price: 'Gratuit', era: '1732 AD', distance: "Cœur de la vieille ville" },
+    en: { title: 'Bab El Mansour', cat: 'Historic Gate', desc: "The greatest and most magnificent gate in Morocco, completed in 1732 by Sultan Moulay Abdallah, son of Moulay Ismail. Its sumptuous facade is adorned with colorful zellige tiles, white marble, and Corinthian columns brought from Volubilis. Its name comes from its Andalusian architect who converted to Islam. It is considered a unique Islamic architectural masterpiece embodying the grandeur of Ismaili civilization at its peak.", hours: 'Open 24/7', price: 'Free', era: '1732 AD', distance: 'Heart of the old city' },
+    mapUrl: 'https://maps.google.com/?q=Bab+El+Mansour+Meknes+Morocco'
+  },
+  {
+    icon: '🕌',
+    ar: { title: 'ضريح مولاي إسماعيل', cat: 'ضريح ملكي', desc: 'مزار ديني وتاريخي استثنائي يضم رفات السلطان مولاي إسماعيل، أعظم ملوك المغرب الذي حكم أكثر من 55 سنة وجعل مكناس عاصمة للإمبراطورية الشريفة. يتميز المزار بزخارفه الأندلسية الفاخرة من زليج مصفوف بدقة وجبص منقوش ونقوش عربية من خشب الأرز. يُعدّ أحد النادرين من الأضرحة المغربية المفتوحة لغير المسلمين.', hours: '9ص – 6.30م', price: 'مجاناً', era: 'القرن 17م', distance: 'قلب المدينة العتيقة' },
+    fr: { title: 'Mausolée de Moulay Ismail', cat: 'Mausolée Royal', desc: "Sanctuaire religieux et historique exceptionnel abritant la dépouille du Sultan Moulay Ismail, le plus grand roi du Maroc qui régna plus de 55 ans et fit de Meknès la capitale de l'Empire chérifien. Le sanctuaire se distingue par ses ornements andalous luxueux : zelliges finement disposés, stuc sculpté et inscriptions arabes en bois de cèdre. C'est l'un des rares mausolées marocains ouverts aux non-musulmans.", hours: '9h – 18h30', price: 'Gratuit', era: 'XVIIe siècle', distance: "Cœur de la vieille ville" },
+    en: { title: 'Mausoleum of Moulay Ismail', cat: 'Royal Mausoleum', desc: "An exceptional religious and historical shrine housing the remains of Sultan Moulay Ismail, Morocco's greatest king who ruled for more than 55 years and made Meknes the capital of the Sharifian Empire. The shrine features exquisite Andalusian decorations of finely arranged zellige, sculpted stucco, and Arabic cedar-wood inscriptions. It is one of the rare Moroccan mausoleums open to non-Muslims.", hours: '9AM – 6:30PM', price: 'Free', era: '17th Century', distance: 'Heart of the old city' },
+    mapUrl: 'https://maps.google.com/?q=Mausoleum+Moulay+Ismail+Meknes'
+  },
+  {
+    icon: '🏟️',
+    ar: { title: 'ساحة الهديم', cat: 'ميدان تاريخي', desc: 'قلب مكناس النابض وروحها الحية، تقع مقابل باب المنصور مباشرةً وتُعدّ أكبر ميدان في المدينة العتيقة. كانت في الأصل موضعاً لقصر ملكي هُدم فصارت ساحةً مفتوحة تعجّ بالحرفيين والباعة وقهاوي السطوح التي توفر إطلالات بانورامية على الباب العظيم. تُحيي الساحة ليلياً بعروض الحلقة والموسيقى التقليدية.', hours: '7ص – 8م', price: 'مجاناً', era: 'القرن 17م', distance: 'مركز المدينة العتيقة' },
+    fr: { title: 'Place El Hedim', cat: 'Place Historique', desc: "Cœur vibrant et âme vivante de Meknès, située directement en face de Bab El Mansour et considérée comme la plus grande place de la vieille ville. Initialement emplacement d'un palais royal démoli, elle est devenue un espace ouvert grouillant d'artisans, de marchands et de cafés en terrasse offrant des vues panoramiques sur la grande porte. La place s'anime le soir avec des spectacles de halqa et de musique traditionnelle.", hours: '7h – 20h', price: 'Gratuit', era: 'XVIIe siècle', distance: 'Centre de la vieille ville' },
+    en: { title: 'El Hedim Square', cat: 'Historic Square', desc: "The vibrant heart and living soul of Meknes, located directly opposite Bab El Mansour and considered the largest square in the old city. Originally the site of a demolished royal palace, it became an open space teeming with artisans, merchants and rooftop cafes offering panoramic views of the great gate. The square comes alive at night with halqa performances and traditional music.", hours: '7AM – 8PM', price: 'Free', era: '17th Century', distance: 'Center of the old city' },
+    mapUrl: 'https://maps.google.com/?q=Place+El+Hedim+Meknes'
+  },
+  {
+    icon: '🎵',
+    ar: { title: 'متحف دار الجامعي', cat: 'متحف وطني', desc: 'قصر أندلسي بديع بُني في النصف الثاني من القرن التاسع عشر من طرف الوزير الجامعي ومُؤسَّس اليوم كمتحف وطني للموسيقى التقليدية المغربية. تجوّل في حدائقه الغنّاء وصالاته المزيّنة بالزليج والجبص والخشب المنقوش. تكتشف مجموعات من الأزياء التقليدية والمجوهرات والآلات الموسيقية والفنون الشعبية المغربية.', hours: '10ص – 6م (مغلق الثلاثاء)', price: 'رسوم رمزية', era: 'القرن 19م', distance: 'ساحة الهديم' },
+    fr: { title: 'Musée Dar Jamai', cat: 'Musée National', desc: "Magnifique palais andalou construit dans la seconde moitié du XIXe siècle par le vizir Jamai, aujourd'hui aménagé en musée national de la musique traditionnelle marocaine. Promenez-vous dans ses jardins verdoyants et ses salles ornées de zelliges, de stuc et de bois sculpté. Vous découvrirez des collections de costumes traditionnels, bijoux, instruments de musique et arts populaires marocains.", hours: '10h – 18h (fermé mardi)', price: 'Tarif symbolique', era: 'XIXe siècle', distance: 'Place El Hedim' },
+    en: { title: 'Dar Jamai Museum', cat: 'National Museum', desc: "A magnificent Andalusian palace built in the second half of the 19th century by Vizier Jamai, now established as a national museum of traditional Moroccan music. Stroll through its lush gardens and halls decorated with zellige, stucco and carved wood. Discover collections of traditional costumes, jewelry, musical instruments and Moroccan folk arts.", hours: '10AM – 6PM (closed Tuesday)', price: 'Nominal fee', era: '19th Century', distance: 'El Hedim Square' },
+    mapUrl: 'https://maps.google.com/?q=Dar+Jamai+Museum+Meknes'
+  },
+  {
+    icon: '🌾',
+    ar: { title: 'هري السواني وبحيرة أكدال', cat: 'مخازن ملكية', desc: 'مجمع متكامل من المخازن الملكية الأسطورية التي أمر بإنشائها السلطان مولاي إسماعيل لتخزين الغلال وتغذية جيوشه وخيوله الأفارقة الشهيرة. تمتد عبر مساحات شاسعة بجدران سميكة وأقبية عملاقة مصممة بعبقرية للحفاظ على درجات الحرارة. بجانبها بحيرة أكدال الملكية التاريخية التي كانت تُستخدم للري وللملاحة الملكية.', hours: '9ص – 12.30م / 3م – 6.30م', price: 'رسوم رمزية', era: 'القرن 17م', distance: 'جنوب المدينة العتيقة' },
+    fr: { title: 'Hri es-Souani & Bassin Agdal', cat: 'Greniers Royaux', desc: "Complexe de greniers royaux légendaires, ordonnés par le Sultan Moulay Ismail pour stocker les céréales et nourrir ses armées et ses célèbres chevaux africains. Ils s'étendent sur de vastes surfaces avec de grands murs et d'immenses voûtes conçues avec génie pour maintenir des températures constantes. À côté se trouve le bassin royal historique d'Agdal, autrefois utilisé pour l'irrigation et la navigation royale.", hours: '9h–12h30 / 15h–18h30', price: 'Tarif symbolique', era: 'XVIIe siècle', distance: 'Sud de la vieille ville' },
+    en: { title: 'Hri es-Souani & Agdal Basin', cat: 'Royal Granaries', desc: "A complex of legendary royal granaries ordered by Sultan Moulay Ismail to store grain and feed his armies and famous African horses. They extend over vast areas with thick walls and massive vaults ingeniously designed to maintain constant temperatures. Alongside is the historic royal Agdal Basin, once used for irrigation and royal navigation.", hours: '9AM–12:30PM / 3–6:30PM', price: 'Nominal fee', era: '17th Century', distance: 'South of the old city' },
+    mapUrl: 'https://maps.google.com/?q=Hri+Souani+Meknes'
+  },
+  {
+    icon: '🏺',
+    ar: { title: 'وليلي الرومانية', cat: 'موقع أثري روماني', desc: 'أعظم موقع أثري روماني في المغرب وإفريقيا، مدرج على قائمة اليونسكو للتراث الإنساني العالمي منذ عام 1997م. المدينة المُروّعة التي ازدهرت بين القرن الأول والثالث الميلادي تُبهرك بفسيفساء ملونة خلّابة تصوّر الأساطير اليونانية والرومانية، وقوس انتصار شامخ لكركلا، ومعبد المشتر الفخم. تبعد حوالي 33 كم شمال مكناس.', hours: '8.30ص – 6م', price: '100 درهم للأجانب / 30 درهم للمواطنين', era: 'ق1م – ق3م', distance: '33 كم شمال مكناس' },
+    fr: { title: 'Site Archéologique de Volubilis', cat: 'Site Romain UNESCO', desc: "Le plus grand site archéologique romain du Maroc et d'Afrique, inscrit sur la liste du patrimoine mondial de l'UNESCO depuis 1997. Cette ville fascinante qui prospéra entre le Ier et le IIIe siècle après J.-C. vous éblouit avec de magnifiques mosaïques colorées représentant des mythes grecs et romains, un majestueux arc de triomphe de Caracalla et le somptueux temple de Jupiter. Situé à environ 33 km au nord de Meknès.", hours: '8h30 – 18h', price: '100 DH étrangers / 30 DH Marocains', era: 'Ier – IIIe siècle', distance: '33 km au nord de Meknès' },
+    en: { title: 'Volubilis Roman Site', cat: 'UNESCO Roman Site', desc: "The greatest Roman archaeological site in Morocco and Africa, listed on UNESCO's World Heritage List since 1997. This magnificent city that flourished between the 1st and 3rd centuries AD dazzles with stunning colorful mosaics depicting Greek and Roman myths, a majestic triumphal arch of Caracalla, and the splendid Temple of Jupiter. Located about 33 km north of Meknes.", hours: '8:30AM – 6PM', price: '100 DH foreigners / 30 DH Moroccans', era: '1st – 3rd Century AD', distance: '33 km north of Meknes' },
+    mapUrl: 'https://maps.google.com/?q=Volubilis+Morocco'
+  },
+  {
+    icon: '🚪',
+    ar: { title: 'باب الخميس', cat: 'بوابة تاريخية', desc: 'بوابة تاريخية فخمة من القرن السابع عشر تُعدّ من أجمل أبواب مكناس العتيقة وأكثرها أصالةً. بناها مولاي إسماعيل لتكون المدخل الغربي لمدينة الرياض العنبرية، مدينته المقدسة المفقودة. تتزيّن بفريز ونقوش هندسية كوفية بالغة الجمال وبرجَين مربعَين ضخمَين يُحيطان بقوسها الكبير. دُمّرت المدينة المحيطة بها لكن الباب صمد شاهداً على التاريخ.', hours: 'مفتوح دائماً', price: 'مجاناً', era: 'القرن 17م', distance: 'غرب المدينة العتيقة' },
+    fr: { title: 'Bab El-Khemis', cat: 'Porte Historique', desc: "Magnifique porte historique du XVIIe siècle, considérée comme l'une des plus belles et authentiques de la vieille Meknès. Construite par Moulay Ismail pour être l'entrée ouest de la cité de Riyad Al Anbari, sa ville sacrée disparue. Elle est ornée d'une frise et d'inscriptions géométriques coufiques d'une grande beauté et de deux imposantes tours carrées encadrant sa grande arche. La ville environnante fut détruite mais la porte résista, témoin de l'Histoire.", hours: 'Ouvert 24h/24', price: 'Gratuit', era: 'XVIIe siècle', distance: "Ouest de la vieille ville" },
+    en: { title: 'Bab El-Khemis', cat: 'Historic Gate', desc: "A magnificent 17th-century historic gate, considered one of the most beautiful and authentic in old Meknes. Built by Moulay Ismail as the western entrance to the city of Riyad Al Anbari, his lost sacred city. It is adorned with friezes and beautiful Kufic geometric inscriptions, and two large square towers flanking its grand arch. The surrounding city was destroyed but the gate stood firm as a witness to history.", hours: 'Open 24/7', price: 'Free', era: '17th Century', distance: 'West of the old city' },
+    mapUrl: 'https://maps.google.com/?q=Bab+El+Khemis+Meknes'
+  },
+  {
+    icon: '⛰️',
+    ar: { title: 'مولاي إدريس زرهون', cat: 'مدينة مقدسة', desc: 'المدينة المقدسة المبنية على قمتي تلتين متجاورتين في نفوذ مكناس، تضم ضريح مولاي إدريس الأول حفيد النبي محمد ﷺ، مؤسس الدولة الإدريسية وأول دولة إسلامية مستقلة في المغرب. زيارتها تجربة روحية وبشرية لا تُنسى: أزقة بيضاء ضيقة، رائحة البخور، صدى الأذان، وبانوراما خلّابة على سهول المغرب الأوسط ووليلي الرومانية.', hours: 'مفتوح طوال اليوم', price: 'مجاناً', era: 'القرن 8م الهجري', distance: '30 دقيقة بالسيارة من مكناس' },
+    fr: { title: 'Moulay Idriss Zerhoun', cat: 'Ville Sacrée', desc: "Ville sacrée construite au sommet de deux collines voisines dans la région de Meknès, abritant le mausolée de Moulay Idriss Ier, petit-fils du Prophète Mohammed ﷺ, fondateur de la dynastie Idrisside et premier État islamique indépendant du Maroc. La visite est une expérience spirituelle et humaine inoubliable : ruelles blanches étroites, parfum d'encens, écho de l'appel à la prière, et une vue panoramique saisissante sur les plaines du Maroc central et Volubilis.", hours: 'Ouvert toute la journée', price: 'Gratuit', era: 'VIIIe siècle', distance: '30 min en voiture de Meknès' },
+    en: { title: 'Moulay Idriss Zerhoun', cat: 'Sacred City', desc: "A sacred city built on two neighboring hilltops near Meknes, housing the mausoleum of Moulay Idriss I, grandson of the Prophet Mohammed ﷺ, founder of the Idrisid dynasty and Morocco's first independent Islamic state. The visit is an unforgettable spiritual and human experience: narrow white alleys, the scent of incense, the echo of the call to prayer, and a breathtaking panoramic view over the plains of central Morocco and Volubilis.", hours: 'Open all day', price: 'Free', era: '8th Century', distance: '30 min drive from Meknes' },
+    mapUrl: 'https://maps.google.com/?q=Moulay+Idriss+Zerhoun+Morocco'
+  }
+];
+
+// ========== LANGUAGE ==========
+let currentLang = 'ar';
+
+function setLang(lang) {
+  currentLang = lang;
+  document.body.className = lang;
+  document.documentElement.lang = lang;
+  document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+
+  document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+  event.target.classList.add('active');
+
+  document.querySelectorAll('[data-ar]').forEach(el => {
+    el.textContent = el.dataset[lang] || el.dataset.ar;
+  });
+}
+
+// ========== MODAL ==========
+function openModal(i) {
+  const d = landmarks[i];
+  const l = d[currentLang];
+
+  document.getElementById('m-icon').textContent = d.icon;
+  document.getElementById('m-title').textContent = l.title;
+  document.getElementById('m-cat').textContent = l.cat;
+  document.getElementById('m-desc').textContent = l.desc;
+  document.getElementById('m-mapbtn').href = d.mapUrl;
+
+  const labels = {
+    ar: { hours: 'ساعات الفتح', price: 'رسوم الدخول', era: 'الحقبة التاريخية', distance: 'الموقع' },
+    fr: { hours: 'Horaires', price: "Tarif d'entrée", era: 'Époque historique', distance: 'Emplacement' },
+    en: { hours: 'Opening Hours', price: 'Entry Fee', era: 'Historical Era', distance: 'Location' }
+  };
+  const lb = labels[currentLang];
+
+  document.getElementById('m-facts').innerHTML = `
+    <div class="fact-item"><div class="fact-label">${lb.hours}</div><div class="fact-value">${l.hours}</div></div>
+    <div class="fact-item"><div class="fact-label">${lb.price}</div><div class="fact-value">${l.price}</div></div>
+    <div class="fact-item"><div class="fact-label">${lb.era}</div><div class="fact-value">${l.era}</div></div>
+    <div class="fact-item"><div class="fact-label">${lb.distance}</div><div class="fact-value">${l.distance}</div></div>
+  `;
+
+  // Update map button text
+  const mapBtnTexts = { ar: '🗺️ فتح في خرائط Google', fr: '🗺️ Ouvrir dans Google Maps', en: '🗺️ Open in Google Maps' };
+  document.getElementById('m-mapbtn').textContent = mapBtnTexts[currentLang];
+
+  document.getElementById('modal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal(e) {
+  if (!e || e.target === document.getElementById('modal')) {
+    document.getElementById('modal').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+}
+
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+// ========== SCROLL ==========
+function scrollTo(id) {
+  document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+}
+
+// ========== INTERSECTION OBSERVER ==========
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+// ========== NAV ACTIVE ==========
+const sections = ['landmarks', 'map-section', 'tips'];
+const tabs = document.querySelectorAll('.nav-tab');
+window.addEventListener('scroll', () => {
+  let current = '';
+  sections.forEach(id => {
+    const el = document.getElementById(id);
+    if (el && el.getBoundingClientRect().top < 200) current = id;
+  });
+  tabs.forEach((tab, i) => {
+    tab.classList.toggle('active', sections[i] === current || (current === '' && i === 0));
+  });
+});
+</script>
+<script>
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("/sw.js")
+      .then(reg => console.log("SW registered:", reg.scope))
+      .catch(err => console.log("SW error:", err));
+  });
+}
+</script>
+</body>
+</html>
