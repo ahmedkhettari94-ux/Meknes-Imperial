@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>دليل نشر تطبيق مكناس — Play Store Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Tajawal:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+:root {
+  --gold: #C9A84C;
+  --deep: #1A120B;
+  --warm: #2C1A0E;
+  --sand: #F5EDD8;
+  --green: #2E7D32;
+  --red: #B71C1C;
+  --blue: #1565C0;
+  --teal: #2A6B6B;
+  --terracotta: #B85C38;
+}
+body {
+  font-family: 'Tajawal', sans-serif;
+  background: #F8F4ED;
+  color: #1A120B;
+  line-height: 1.7;
+}
+
+/* HEADER */
+.header {
+  background: linear-gradient(135deg, var(--deep), var(--warm));
+  color: var(--sand);
+  padding: 3rem 2rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.header::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 6px;
+  background: repeating-linear-gradient(90deg,
+    #C9A84C 0 20px, #B85C38 20px 40px, #2A6B6B 40px 60px, #8B6914 60px 80px);
+}
+.header-badge {
+  display: inline-block;
+  border: 1px solid rgba(201,168,76,0.5);
+  color: var(--gold);
+  padding: 0.3rem 1.2rem;
+  font-size: 0.7rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+}
+.header h1 {
+  font-family: 'Amiri', serif;
+  font-size: clamp(1.8rem, 4vw, 3rem);
+  color: var(--sand);
+  margin-bottom: 0.5rem;
+}
+.header h1 span { color: var(--gold); }
+.header p { color: rgba(245,237,216,0.7); font-size: 0.95rem; }
+
+/* CONTAINER */
+.container { max-width: 900px; margin: 0 auto; padding: 2rem 1.5rem; }
+
+/* ROADMAP */
+.roadmap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  margin: 2rem 0 3rem;
+  flex-wrap: wrap;
+}
+.road-step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
+  flex: 1;
+  min-width: 120px;
+  text-align: center;
+}
+.road-num {
+  width: 52px; height: 52px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 700; font-size: 1.2rem;
+  color: white;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+.road-label { font-size: 0.78rem; font-weight: 500; color: #555; }
+.road-sub { font-size: 0.65rem; color: #999; }
+.road-arrow { font-size: 1.5rem; color: #ccc; padding: 0 0.3rem; margin-top: -1.5rem; }
+.c1 { background: linear-gradient(135deg, #1565C0, #1976D2); }
+.c2 { background: linear-gradient(135deg, #6A1B9A, #8E24AA); }
+.c3 { background: linear-gradient(135deg, #2E7D32, #388E3C); }
+.c4 { background: linear-gradient(135deg, #C9A84C, #8B6914); }
+
+/* STEP CARD */
+.step-card {
+  background: white;
+  border-radius: 12px;
+  margin-bottom: 2rem;
+  overflow: hidden;
+  box-shadow: 0 2px 20px rgba(0,0,0,0.08);
+  border: 1px solid rgba(0,0,0,0.06);
+}
+.step-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.2rem 1.5rem;
+  color: white;
+}
+.step-icon { font-size: 1.8rem; }
+.step-num {
+  background: rgba(255,255,255,0.2);
+  border-radius: 50%;
+  width: 36px; height: 36px;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 700; font-size: 0.9rem;
+  flex-shrink: 0;
+}
+.step-title { font-size: 1.1rem; font-weight: 700; }
+.step-subtitle { font-size: 0.8rem; opacity: 0.8; }
+.s1 .step-header { background: linear-gradient(135deg, #1565C0, #1976D2); }
+.s2 .step-header { background: linear-gradient(135deg, #6A1B9A, #8E24AA); }
+.s3 .step-header { background: linear-gradient(135deg, #2E7D32, #43A047); }
+
+.step-body { padding: 1.5rem; }
+
+/* SUB STEPS */
+.sub-step {
+  display: flex;
+  gap: 1rem;
+  padding: 0.9rem;
+  border-radius: 8px;
+  margin-bottom: 0.7rem;
+  background: #FAFAFA;
+  border: 1px solid #F0EDE8;
+  align-items: flex-start;
+  transition: background 0.2s;
+}
+.sub-step:hover { background: #FFF8EE; }
+.sub-num {
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  background: var(--gold);
+  color: white;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.75rem;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+.sub-content h4 { font-size: 0.9rem; font-weight: 700; color: #1A120B; margin-bottom: 0.2rem; }
+.sub-content p { font-size: 0.82rem; color: #666; }
+
+/* CODE BOX */
+.code-box {
+  background: #1E1E1E;
+  border-radius: 8px;
+  padding: 1rem 1.2rem;
+  margin: 0.8rem 0;
+  font-family: 'Courier New', monospace;
+  font-size: 0.82rem;
+  color: #C9A84C;
+  direction: ltr;
+  text-align: left;
+  position: relative;
+  overflow-x: auto;
+}
+.code-box .comment { color: #6A9955; }
+.code-label {
+  font-size: 0.65rem;
+  color: #666;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-bottom: 0.3rem;
+  display: block;
+}
+
+/* WARNING BOX */
+.warning {
+  background: #FFF3E0;
+  border: 1px solid #FFB74D;
+  border-right: 4px solid #F57C00;
+  border-radius: 6px;
+  padding: 0.9rem 1rem;
+  margin: 0.8rem 0;
+  font-size: 0.85rem;
+  display: flex;
+  gap: 0.7rem;
+  align-items: flex-start;
+}
+.warning-icon { font-size: 1.2rem; flex-shrink: 0; }
+
+/* SUCCESS BOX */
+.success {
+  background: #E8F5E9;
+  border: 1px solid #81C784;
+  border-right: 4px solid #2E7D32;
+  border-radius: 6px;
+  padding: 0.9rem 1rem;
+  margin: 0.8rem 0;
+  font-size: 0.85rem;
+  display: flex;
+  gap: 0.7rem;
+}
+
+/* TABLE */
+.info-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1rem 0;
+  font-size: 0.85rem;
+}
+.info-table th {
+  background: var(--deep);
+  color: var(--gold);
+  padding: 0.6rem 1rem;
+  text-align: right;
+  font-weight: 600;
+}
+.info-table td {
+  padding: 0.6rem 1rem;
+  border-bottom: 1px solid #F0EDE8;
+}
+.info-table tr:hover td { background: #FFF8EE; }
+.info-table tr:last-child td { border-bottom: none; }
+
+/* PRICE CARD */
+.price-card {
+  background: linear-gradient(135deg, #1A120B, #2C1A0E);
+  border-radius: 12px;
+  padding: 1.5rem;
+  text-align: center;
+  color: var(--sand);
+  margin: 1rem 0;
+}
+.price-amount {
+  font-size: 3rem;
+  font-weight: 700;
+  color: var(--gold);
+  line-height: 1;
+}
+.price-label { font-size: 0.85rem; opacity: 0.7; margin-top: 0.3rem; }
+.price-note { font-size: 0.75rem; opacity: 0.5; margin-top: 0.5rem; }
+
+/* FILES GRID */
+.files-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 0.8rem;
+  margin: 1rem 0;
+}
+.file-item {
+  background: #F8F4ED;
+  border: 1px solid #E8D9BB;
+  border-radius: 8px;
+  padding: 0.8rem;
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+}
+.file-icon { font-size: 1.5rem; }
+.file-name { font-size: 0.8rem; font-weight: 600; color: #1A120B; }
+.file-desc { font-size: 0.7rem; color: #888; }
+
+/* LINKS */
+.link-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: var(--gold);
+  color: var(--deep);
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  text-decoration: none;
+  margin: 0.3rem;
+  transition: opacity 0.2s;
+  direction: ltr;
+}
+.link-btn:hover { opacity: 0.85; }
+.link-btn.blue { background: #1565C0; color: white; }
+.link-btn.purple { background: #6A1B9A; color: white; }
+.link-btn.green { background: #2E7D32; color: white; }
+
+/* FOOTER */
+footer {
+  background: var(--deep);
+  color: rgba(245,237,216,0.6);
+  text-align: center;
+  padding: 2rem;
+  font-size: 0.8rem;
+  margin-top: 3rem;
+}
+footer a { color: var(--gold); text-decoration: none; }
+.zellige-f {
+  height: 5px;
+  background: repeating-linear-gradient(90deg,
+    #C9A84C 0 20px, #B85C38 20px 40px, #2A6B6B 40px 60px, #8B6914 60px 80px);
+  margin-bottom: 2rem;
+}
+
+@media(max-width:600px) {
+  .roadmap { gap: 0.5rem; }
+  .road-arrow { display: none; }
+  .files-grid { grid-template-columns: 1fr 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="header-badge">دليل النشر الرسمي · Official Launch Guide</div>
+  <h1>نشر تطبيق <span>مكناس الإمبراطورية</span><br>على Google Play Store</h1>
+  <p>Ahmed Khettari · khettarihistory@gmail.com · 2025</p>
+</div>
+
+<div class="container">
+
+  <!-- ROADMAP -->
+  <div class="roadmap">
+    <div class="road-step">
+      <div class="road-num c1">1</div>
+      <div class="road-label">GitHub Pages</div>
+      <div class="road-sub">استضافة مجانية</div>
+    </div>
+    <div class="road-arrow">→</div>
+    <div class="road-step">
+      <div class="road-num c2">2</div>
+      <div class="road-label">PWABuilder</div>
+      <div class="road-sub">توليد APK</div>
+    </div>
+    <div class="road-arrow">→</div>
+    <div class="road-step">
+      <div class="road-num c3">3</div>
+      <div class="road-label">Play Console</div>
+      <div class="road-sub">النشر الرسمي</div>
+    </div>
+    <div class="road-arrow">→</div>
+    <div class="road-step">
+      <div class="road-num c4">🎉</div>
+      <div class="road-label">تطبيقك حي!</div>
+      <div class="road-sub">Play Store</div>
+    </div>
+  </div>
+
+  <!-- FILES -->
+  <div class="step-card" style="border-right: 4px solid var(--gold);">
+    <div style="padding:1.2rem 1.5rem; border-bottom:1px solid #F0EDE8;">
+      <h3 style="font-size:1rem; color:#1A120B;">📦 ملفاتك الجاهزة</h3>
+      <p style="font-size:0.82rem; color:#888;">هذه هي الملفات التي أُعدّت لك — ارفعها كلها على GitHub</p>
+    </div>
+    <div style="padding:1.2rem 1.5rem;">
+      <div class="files-grid">
+        <div class="file-item">
+          <div class="file-icon">🌐</div>
+          <div><div class="file-name">index.html</div><div class="file-desc">الموقع الكامل + PWA</div></div>
+        </div>
+        <div class="file-item">
+          <div class="file-icon">📋</div>
+          <div><div class="file-name">manifest.json</div><div class="file-desc">هوية التطبيق</div></div>
+        </div>
+        <div class="file-item">
+          <div class="file-icon">⚙️</div>
+          <div><div class="file-name">sw.js</div><div class="file-desc">وضع أوفلاين</div></div>
+        </div>
+        <div class="file-item">
+          <div class="file-icon">🖼️</div>
+          <div><div class="file-name">icons/ (8 صور)</div><div class="file-desc">أيقونات التطبيق</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 1 -->
+  <div class="step-card s1">
+    <div class="step-header">
+      <span class="step-icon">📂</span>
+      <div class="step-num">1</div>
+      <div>
+        <div class="step-title">استضافة الموقع على GitHub Pages</div>
+        <div class="step-subtitle">مجاناً تماماً · بدون بطاقة بنكية</div>
+      </div>
+    </div>
+    <div class="step-body">
+
+      <div class="sub-step">
+        <div class="sub-num">أ</div>
+        <div class="sub-content">
+          <h4>إنشاء حساب GitHub</h4>
+          <p>افتح الرابط أدناه وسجّل بنفس بريدك <strong>khettarihistory@gmail.com</strong></p>
+          <a href="https://github.com" target="_blank" class="link-btn blue">🔗 github.com</a>
+        </div>
+      </div>
+
+      <div class="sub-step">
+        <div class="sub-num">ب</div>
+        <div class="sub-content">
+          <h4>إنشاء مستودع جديد (Repository)</h4>
+          <p>اضغط الزر الأخضر <strong>"New"</strong> — سمّ المشروع:</p>
+          <div class="code-box">meknes-imperial</div>
+          <p>اختر <strong>Public</strong> ثم اضغط <strong>Create repository</strong></p>
+        </div>
+      </div>
+
+      <div class="sub-step">
+        <div class="sub-num">ج</div>
+        <div class="sub-content">
+          <h4>رفع الملفات</h4>
+          <p>اضغط <strong>"uploading an existing file"</strong> وارفع جميع الملفات المُعدَّة لك (index.html, manifest.json, sw.js, مجلد icons/)</p>
+          <p>ثم اضغط <strong>"Commit changes"</strong></p>
+        </div>
+      </div>
+
+      <div class="sub-step">
+        <div class="sub-num">د</div>
+        <div class="sub-content">
+          <h4>تفعيل GitHub Pages</h4>
+          <p>Settings → Pages → Branch: main → Save</p>
+          <p>بعد دقيقة، موقعك سيكون على:</p>
+          <div class="code-box">https://<span style="color:#9CDCFE">ahmed-khettari</span>.github.io/<span style="color:#9CDCFE">meknes-imperial</span>/</div>
+          <div class="warning"><span class="warning-icon">📌</span><span>احتفظ بهذا الرابط — ستحتاجه في الخطوة التالية!</span></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- STEP 2 -->
+  <div class="step-card s2">
+    <div class="step-header">
+      <span class="step-icon">🔧</span>
+      <div class="step-num">2</div>
+      <div>
+        <div class="step-title">تحويل الموقع إلى تطبيق Android</div>
+        <div class="step-subtitle">باستخدام PWABuilder من Microsoft — مجاناً</div>
+      </div>
+    </div>
+    <div class="step-body">
+
+      <div class="sub-step">
+        <div class="sub-num">أ</div>
+        <div class="sub-content">
+          <h4>فتح PWABuilder</h4>
+          <a href="https://www.pwabuilder.com" target="_blank" class="link-btn purple">🔗 pwabuilder.com</a>
+          <p>أدخل رابط موقعك من GitHub Pages واضغط <strong>Start</strong></p>
+        </div>
+      </div>
+
+      <div class="sub-step">
+        <div class="sub-num">ب</div>
+        <div class="sub-content">
+          <h4>توليد حزمة Android</h4>
+          <p>اضغط <strong>"Package for stores"</strong> → اختر <strong>"Google Play"</strong> → اضغط <strong>"Generate Package"</strong></p>
+          <p>ستنزّل ملف ZIP يحتوي على:</p>
+          <div class="code-box"><span class="comment">// محتويات الملف المُنزَّل:</span><br>
+app-release-bundle.aab  <span class="comment">← ارفع هذا على Play Store</span><br>
+signing.keystore        <span class="comment">← احتفظ به في مكان آمن!</span><br>
+signing-key-info.txt    <span class="comment">← كلمات مرور المفتاح</span></div>
+        </div>
+      </div>
+
+      <div class="warning">
+        <span class="warning-icon">⚠️</span>
+        <div>
+          <strong>تحذير مهم جداً:</strong><br>
+          احفظ ملف <code>signing.keystore</code> في مكان آمن (USB أو Drive).
+          إذا فقدته لن تستطيع تحديث تطبيقك أبداً في المستقبل!
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- STEP 3 -->
+  <div class="step-card s3">
+    <div class="step-header">
+      <span class="step-icon">🚀</span>
+      <div class="step-num">3</div>
+      <div>
+        <div class="step-title">نشر التطبيق على Google Play Store</div>
+        <div class="step-subtitle">رسوم تسجيل لمرة واحدة فقط</div>
+      </div>
+    </div>
+    <div class="step-body">
+
+      <div class="price-card">
+        <div class="price-amount">$25</div>
+        <div class="price-label">رسوم تسجيل حساب المطوّر</div>
+        <div class="price-note">مرة واحدة فقط · تنشر تطبيقات غير محدودة بعدها</div>
+      </div>
+
+      <div class="sub-step">
+        <div class="sub-num">أ</div>
+        <div class="sub-content">
+          <h4>فتح Google Play Console</h4>
+          <a href="https://play.google.com/console" target="_blank" class="link-btn green">🔗 play.google.com/console</a>
+          <p>سجّل دخول بحساب Google وادفع الـ 25$</p>
+        </div>
+      </div>
+
+      <div class="sub-step">
+        <div class="sub-num">ب</div>
+        <div class="sub-content">
+          <h4>إنشاء تطبيق جديد</h4>
+          <p>اضغط <strong>Create app</strong> وأدخل:</p>
+          <table class="info-table">
+            <tr><th>الحقل</th><th>القيمة</th></tr>
+            <tr><td>App name</td><td>مكناس الإمبراطورية | Imperial Meknes</td></tr>
+            <tr><td>Language</td><td>Arabic</td></tr>
+            <tr><td>Type</td><td>App</td></tr>
+            <tr><td>Price</td><td>Free</td></tr>
+          </table>
+        </div>
+      </div>
+
+      <div class="sub-step">
+        <div class="sub-num">ج</div>
+        <div class="sub-content">
+          <h4>معلومات صفحة المتجر (Store Listing)</h4>
+          <span class="code-label">الوصف القصير (80 حرف):</span>
+          <div class="code-box">دليل سياحي شامل لمعالم مكناس الإمبراطورية — Guide touristique de Meknès</div>
+          <span class="code-label">الفئة:</span>
+          <div class="code-box">Travel & Local</div>
+          <span class="code-label">البريد الإلكتروني للدعم:</span>
+          <div class="code-box">khettarihistory@gmail.com</div>
+        </div>
+      </div>
+
+      <div class="sub-step">
+        <div class="sub-num">د</div>
+        <div class="sub-content">
+          <h4>الصور المطلوبة للمتجر</h4>
+          <table class="info-table">
+            <tr><th>الصورة</th><th>الحجم</th><th>الملف</th></tr>
+            <tr><td>App Icon</td><td>512×512</td><td>icons/icon-512.png ✅</td></tr>
+            <tr><td>Feature Graphic</td><td>1024×500</td><td>صمّمها على Canva 👇</td></tr>
+            <tr><td>Screenshot</td><td>1080×1920</td><td>icons/screenshot1.png ✅</td></tr>
+          </table>
+          <p style="font-size:0.8rem; color:#888; margin-top:0.5rem;">
+            💡 لتصميم Feature Graphic مجاناً:
+          </p>
+          <a href="https://www.canva.com" target="_blank" class="link-btn" style="background:#8B5CF6; color:white;">🎨 canva.com</a>
+        </div>
+      </div>
+
+      <div class="sub-step">
+        <div class="sub-num">ه</div>
+        <div class="sub-content">
+          <h4>رفع ملف AAB ونشره</h4>
+          <p><strong>Release → Production → Create new release</strong></p>
+          <p>ارفع ملف <code>app-release-bundle.aab</code> وأدخل في ملاحظات الإصدار:</p>
+          <div class="code-box">الإصدار الأول — First release v1.0<br>دليل سياحي لمعالم مكناس الإمبراطورية بالمغرب</div>
+          <p>اضغط <strong>Save</strong> → <strong>Review release</strong> → <strong>Start rollout to Production</strong></p>
+        </div>
+      </div>
+
+      <div class="success">
+        <span style="font-size:1.4rem">✅</span>
+        <div>
+          <strong>انتظر المراجعة من 2 إلى 7 أيام</strong><br>
+          ستصلك رسالة على <strong>khettarihistory@gmail.com</strong> عند قبول التطبيق
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- APP INFO -->
+  <div class="step-card" style="border-right: 4px solid var(--gold);">
+    <div style="padding:1.2rem 1.5rem; border-bottom:1px solid #F0EDE8;">
+      <h3 style="font-size:1rem;">📊 معلومات التطبيق للمرجع</h3>
+    </div>
+    <div style="padding:1.2rem 1.5rem;">
+      <table class="info-table">
+        <tr><th>البيان</th><th>القيمة</th></tr>
+        <tr><td>اسم التطبيق</td><td>مكناس الإمبراطورية | Imperial Meknes</td></tr>
+        <tr><td>Package Name</td><td>com.khettari.meknes.imperial</td></tr>
+        <tr><td>الإصدار</td><td>1.0.0</td></tr>
+        <tr><td>الحد الأدنى Android</td><td>5.0 (API 21)</td></tr>
+        <tr><td>الفئة</td><td>Travel & Local</td></tr>
+        <tr><td>السعر</td><td>مجاني</td></tr>
+        <tr><td>المطوّر</td><td>Ahmed Khettari</td></tr>
+        <tr><td>البريد الإلكتروني</td><td>khettarihistory@gmail.com</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- TIPS -->
+  <div style="background: linear-gradient(135deg, #1A120B, #2C1A0E); border-radius:12px; padding:1.5rem; color:var(--sand); margin-bottom:2rem;">
+    <h3 style="color:var(--gold); margin-bottom:1rem; font-size:1rem;">💡 نصائح لرفع فرص القبول</h3>
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.8rem; font-size:0.82rem;">
+      <div style="background:rgba(255,255,255,0.05); border-radius:6px; padding:0.7rem;">
+        ✅ استخدم صوراً واضحة وجذابة
+      </div>
+      <div style="background:rgba(255,255,255,0.05); border-radius:6px; padding:0.7rem;">
+        ✅ أكمل كل حقول Store Listing
+      </div>
+      <div style="background:rgba(255,255,255,0.05); border-radius:6px; padding:0.7rem;">
+        ✅ أجب بصدق على أسئلة Content Rating
+      </div>
+      <div style="background:rgba(255,255,255,0.05); border-radius:6px; padding:0.7rem;">
+        ✅ أضف سياسة خصوصية (Privacy Policy)
+      </div>
+      <div style="background:rgba(255,255,255,0.05); border-radius:6px; padding:0.7rem;">
+        ✅ تأكد من عمل الموقع بدون إنترنت
+      </div>
+      <div style="background:rgba(255,255,255,0.05); border-radius:6px; padding:0.7rem;">
+        ✅ راجع جميع الأقسام باللون الأخضر ✓
+      </div>
+    </div>
+  </div>
+
+  <!-- LINKS -->
+  <div style="text-align:center; margin-bottom:2rem;">
+    <h3 style="margin-bottom:1rem; font-size:0.9rem; color:#888; letter-spacing:0.1em;">🔗 روابط مفيدة</h3>
+    <a href="https://github.com" target="_blank" class="link-btn blue">GitHub</a>
+    <a href="https://www.pwabuilder.com" target="_blank" class="link-btn purple">PWABuilder</a>
+    <a href="https://play.google.com/console" target="_blank" class="link-btn green">Play Console</a>
+    <a href="https://www.canva.com" target="_blank" class="link-btn" style="background:#8B5CF6;color:white">Canva</a>
+  </div>
+
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="zellige-f"></div>
+  <p><strong style="color:var(--gold)">Ahmed Khettari</strong></p>
+  <p><a href="mailto:khettarihistory@gmail.com">khettarihistory@gmail.com</a></p>
+  <p style="margin-top:0.5rem; opacity:0.4">دليل نشر تطبيق مكناس الإمبراطورية · 2025</p>
+</footer>
+
+</body>
+</html>
