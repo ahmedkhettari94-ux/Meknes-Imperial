@@ -35,7 +35,7 @@
 
   html { scroll-behavior: smooth; }
 <script>if('serviceWorker' in navigator){navigator.serviceWorker.register('./sw.js')}</script>
-
+<script>if('serviceWorker' in navigator){navigator.serviceWorker.register('./sw.js').then(()=>console.log('SW OK')).catch(e=>console.log(e))}</script>
   body {
     font-family: 'Amiri', 'Cormorant Garamond', serif;
     background: var(--deep);
